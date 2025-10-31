@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FIRMIX - LET'S UNLOCK YOUR FINANCIAL WITH B STOCK EXCHANGE.</title>
+  <meta name="description" content="FIRMIX - LET'S UNLOCK YOUR FINANCIAL WITH B STOCK EXCHANGE.">
+  <link rel="icon" type="image/jpeg" href="/EDM.jpg">
+  <style>
+    :root {
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      --bg: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #0ea5e9; /* ฟ้า */
+      --primary-hover: #0284c7;
+      --danger: #ef4444;
+      --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,.08);
+      --overlay: 0 8px 24px rgba(0,0,0,.12);
+      --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px;
+      --fs-14: 14px; --fs-16: 16px; --fs-18: 18px; --fs-24: 24px; --fs-32: 32px;
+      --lh: 1.6;
+      --z-base: 1; --z-overlay: 10; --z-modal: 100; --header-height: 54px;
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body { margin: 0; padding-top: var(--header-height); font-family: var(--font); background: var(--bg); color: var(--text); line-height: var(--lh) }
+    img { display:block; max-width:100%; height:auto }
+
+    /* Typography */
+    .text { font-size: var(--fs-16); color: var(--text); line-height: var(--lh); font-weight: 400 }
+    .muted { color: var(--muted) }
+    h1, h2, h3, p, label, button { font-size: var(--fs-16); font-weight: 400; color: var(--text); line-height: var(--lh); margin: 0 }
+
+    /* Layout & spacing */
+    .container { max-width: 1200px; margin: 0 auto; padding: var(--space-6) }
+    .stack { display: grid; gap: var(--space-6) }
+    .grid { display: grid; gap: var(--space-6) }
+    .grid.cards { grid-template-columns: 1fr }
+    @media (min-width: 768px) { .grid.cards { grid-template-columns: repeat(2, 1fr) } }
+    @media (min-width: 1200px) { .grid.cards { grid-template-columns: repeat(3, 1fr) } }
+
+    /* Layers */
+    .layer { position: relative; z-index: var(--z-base); opacity: 1 }
+    .overlay { box-shadow: var(--overlay) }
+
+    /* Card — รูปแบบเดียวกันทุกใบ */
+    .card {
+      display: flex; flex-direction: column; gap: var(--space-4);
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: var(--space-5); box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+      min-height: 360px;
+    }
+    .card.link { text-decoration: none; color: inherit }
+    .card.dark { background:#131416; border-color:#2a2b2c; color:#fff }
+    .card.dark .card-body { color:#e5e7eb }
+    .card.light { background:#fff; border-color:#e5e7eb; color: var(--text) }
+    .card.transparent { background: transparent; border-color:#e5e7eb }
+    #bex-download h2 { text-align:center; font-size: clamp(28px, 5vw, 48px); font-weight: 700 }
+    /* Download cards — layout ตามภาพตัวอย่าง */
+    .download-card { display:flex; align-items:center; gap: var(--space-6); min-height: 140px; position: relative }
+    .download-card::after { content: 'DOWNLOAD'; position: absolute; right: var(--space-6); top: 50%; transform: translateY(-50%); font-weight: 800; font-size: 52px; letter-spacing: 1px; color: rgba(255,255,255,.08); pointer-events:none }
+    @media (max-width: 480px) { .download-card::after { font-size: 32px } }
+    .icon-badge { width: 80px; height: 80px; border-radius: 0; background: transparent; display:flex; align-items:center; justify-content:center; overflow: visible }
+    /* Download section styled to match Framer snippet */
+    .dl-list { display:flex; flex-direction:column; gap:24px; }
+    .dl-card {
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:24px;
+      padding:24px 28px 24px 140px;
+      height:140px; /* equal height like sample */
+      border-radius:16px;
+      background-color: transparent; /* โปร่งใสตามคำขอ */
+      border: 1px solid rgb(42,43,44); /* var(--token-a5dc8f2b...) */
+      box-shadow: inset 0 0 16px rgba(17,24,39,.10); /* เงาด้านในสีเทาอ่อน */
+      color: var(--text);
+      text-decoration:none;
+      overflow:hidden;
+      width:100%;
+    }
+    .dl-card .badge {
+      position:absolute; left:24px; top:24px;
+      width:80px; height:80px; border-radius:100px; /* circle */
+      background-color: rgb(19,20,22);
+      border:1px solid rgb(42,43,44);
+      box-shadow: inset 0 0 10px rgba(17,24,39,.12); /* เงาด้านในสีเทาอ่อน */
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+    .dl-card .badge img { width:100%; height:100%; object-fit:contain; object-position:center; }
+
+    /* เงาด้านในสีเทาอ่อนสำหรับภาพโลโก้ที่เลือก */
+    img[alt="Supported by logos"] {
+      display: block;
+      border-radius: 12px;
+      background-color: #f3f4f6; /* เทาอ่อนพื้นหลัง */
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 16px rgba(17,24,39,.12);
+      opacity: 1; /* ไม่โปร่งใส */
+      filter: grayscale(1) brightness(0.90) contrast(1.20); /* ทำให้โทนเทาและชัดขึ้น */
+      mix-blend-mode: normal;
+      padding: 8px; /* เว้นขอบเล็กน้อยให้ดูชัด */
+    }
+    .dl-card .title { font-weight:600; font-size:16px; }
+    .dl-card::after {
+      content:"DOWNLOAD";
+      position:absolute; right:24px; top:50%; transform:translateY(-50%);
+      font-weight:800; letter-spacing:2px; font-size:48px;
+      color: transparent; -webkit-text-stroke: 1px rgba(17,24,39,0.18);
+      opacity:.35;
+      pointer-events:none;
+    }
+    @media (max-width: 640px) {
+      .dl-card { height:120px; }
+      .dl-card::after { font-size:36px; }
+    }
+    .download-label { font-size: var(--fs-18); font-weight: 700; color:#fff }
+    .card.light .download-label { color: var(--text) }
+    .card.light .icon-badge { background:#fff; border-color:#e5e7eb }
+    .card.light.download-card::after { color: rgba(17,24,39,.08) }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--overlay) }
+    .card-image { aspect-ratio: 1 / 1; border-radius: var(--radius); background:#f3f4f6; display:flex; align-items:center; justify-content:center; overflow:hidden }
+    .card-image img { width:100%; height:100%; object-fit: contain; object-position: center }
+    .card-title { font-size: var(--fs-16); font-weight: 400 }
+    .card-body { font-size: var(--fs-16); color: var(--text) }
+
+    /* Button — รูปแบบเดียวกันทุกปุ่ม */
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      height: 44px; padding: 0 var(--space-5);
+      border-radius: 58px; border:none;
+      background: linear-gradient(270deg, #22c55e 0%, #16a34a 100%); color:#fff; font-weight:700; text-decoration:none;
+      cursor:pointer; transition: background .2s, box-shadow .2s, transform .2s;
+    }
+    .btn:hover { filter: brightness(1.05); box-shadow: 0 4px 16px rgba(0,0,0,.15); transform: translateY(-1px) }
+    .btn:active { transform: translateY(0); box-shadow:none }
+    .btn:disabled { opacity:.6; cursor:not-allowed }
+    .btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(14,165,233,.3) }
+
+    /* Form — รูปแบบเดียวกันทุกฟอร์ม/ฟิลด์ */
+    .form { display:grid; gap: var(--space-5); background:#fff; border:1px solid var(--border); border-radius: var(--radius); padding: var(--space-6); box-shadow: var(--shadow) }
+    .fields { display:grid; gap: var(--space-4) }
+    .field { display:grid; gap: var(--space-2) }
+    .field label { font-weight:700 }
+    .input, .textarea, .select {
+      width:100%; font-size: var(--fs-16); color: var(--text);
+      border:1px solid var(--border); border-radius:10px; outline:none;
+      padding: 0 var(--space-4); height:38px; background:#fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .textarea { height: 120px; padding: var(--space-4) }
+    .input:focus, .textarea:focus, .select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(14,165,233,.2) }
+    .field.invalid .input, .field.invalid .textarea, .field.invalid .select { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239,68,68,.2) }
+    .error { color: var(--danger); font-size: var(--fs-14); min-height: 18px }
+
+    /* Header/Footer */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-overlay); background: #ffffff; border-bottom: 1px solid var(--border) }
+.site-footer { background:#fff; border-top:1px solid var(--border) }
+    .site-header .bar, .site-footer .bar { display:flex; align-items:center; justify-content:space-between; gap: var(--space-4); padding: var(--space-4) }
+.site-header .bar { min-height: var(--header-height); padding: var(--space-3) }
+
+    /* Footer text colors */
+    #footer p,
+    #footer a,
+    #footer .footer-link { color: #111827; }
+    #footer a:hover,
+    #footer .footer-link:hover { color: #000000; }
+    .brand { display:flex; align-items:center; gap: var(--space-3) }
+    .brand img { width: 140px; height:auto; object-fit:contain }
+
+    /* Hero Section */
+    #hero { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--overlay) }
+    #hero .hero-bg { position: absolute; inset: 0 }
+    #hero .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center }
+    #hero .hero-overlay { position: absolute; inset: 0; background: transparent }
+    #hero .hero-container { position: relative; z-index: var(--z-overlay); display: grid; gap: var(--space-4); padding: var(--space-7); min-height: 480px; align-content: center }
+    .hero-title { font-size: clamp(28px, 5vw, 48px); font-weight: 700; line-height: 1.2 }
+    .hero-subtitle { font-size: var(--fs-18); color: var(--muted); max-width: 720px }
+    /* Background Slices */
+    .bg-slice { position: relative; width: 100%; min-height: 260px; overflow: hidden; border-radius: 16px; }
+    .bg-slice .bg-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+    /* Main background layer */
+    main.container.stack { position: relative; z-index: 0; }
+    .main-bg { position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 100vw; z-index: 0; pointer-events: none; overflow: hidden; }
+    main.container.stack > *:not(.main-bg) { position: relative; z-index: 1; }
+    .main-bg .bg-layer { position: absolute; left: 0; width: 100%; height: var(--bg-height, 100vh); background-repeat: no-repeat; background-size: cover; background-position: center; opacity: var(--bg-opacity, 0.88); mix-blend-mode: var(--bg-blend, normal); will-change: transform; }
+    .main-bg .bg-layer::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: var(--fade-size, 140px); pointer-events: none; background: linear-gradient(to bottom, rgba(255,255,255,0.98), rgba(255,255,255,0)); }
+    .main-bg .bg-layer::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: var(--fade-size, 140px); pointer-events: none; background: linear-gradient(to top, rgba(255,255,255,0.98), rgba(255,255,255,0)); }
+
+    /* Services Section */
+    #services .title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; text-align: center }
+    #services .subtitle { font-size: var(--fs-16); color: var(--muted); text-align: center }
+    .services-cards { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: transparent; min-height: 180px }
+    .services-cards .bg { position: absolute; inset: 0; border-radius: inherit }
+    .services-cards .bg img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block }
+    /* Asset Solutions Section */
+    #asset-solutions .title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; text-align: center }
+    #asset-solutions .subtitle { font-size: var(--fs-16); color: var(--muted); text-align: center }
+
+    /* Audience Cards */
+    #audience-cards .title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; text-align: center }
+    #audience-cards .subtitle { font-size: var(--fs-16); color: var(--muted); text-align: center }
+    .aud-list { display: grid; gap: 24px; margin-top: 4px }
+    @media (min-width: 768px) { .aud-list { grid-template-columns: repeat(2, 1fr) } }
+    @media (min-width: 1024px) { .aud-list { grid-template-columns: repeat(3, 1fr) } }
+    .aud-card { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 24px; border-radius: 16px; background: transparent; color: var(--text) }
+    .aud-card .badge { width: 160px; height: 160px; border-radius: 16px; background: var(--bg); border: 1px solid var(--border); flex-shrink: 0; display: grid; place-items: center; overflow: hidden; box-shadow: var(--shadow) }
+    @media (min-width: 768px) { .aud-card .badge { width: 200px; height: 200px } }
+    .aud-card .badge img { width: 100%; height: 100%; object-fit: contain; object-position: center }
+    .aud-title { font-weight: 700; font-size: 20px; margin: 0 }
+    .aud-body { color: var(--muted); margin: 6px 0 0; max-width: 520px }
+
+    /* Support CTA */
+    #support-cta .title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; text-align: center }
+    #support-cta .subtitle { font-size: var(--fs-16); color: var(--muted); text-align: center }
+    .support-actions { display: flex; justify-content: center; }
+    .support-actions .btn { min-width: 220px; }
+    /* Asset Management Services */
+    #asset-services .title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; text-align: center }
+    #asset-services .subtitle { font-size: var(--fs-16); color: var(--muted); text-align: center }
+    .svc-list { display: grid; gap: 24px }
+    @media (min-width: 768px) { .svc-list { grid-template-columns: repeat(2, 1fr) } }
+    .svc-card { position: relative; display: flex; align-items: center; gap: 24px; padding: 24px 28px 24px 140px; border-radius: 16px; background-color: transparent; border: 1px solid var(--border); color: var(--text); overflow: hidden }
+    .svc-card .badge { position: absolute; left: 24px; top: 24px; width: 96px; height: 96px; border-radius: 0; overflow: visible; background: transparent }
+    .svc-card .badge img { width: 100%; height: 100%; object-fit: cover; object-position: center }
+    .svc-card .title { font-weight: 700; font-size: 18px }
+    .svc-card .body { color: var(--muted) }
+
+    /* Bottom Cards */
+    .bottom-list { display: grid; gap: 24px }
+    @media (min-width: 768px) { .bottom-list { grid-template-columns: repeat(2, 1fr) } }
+    .bottom-card { position: relative; display: flex; align-items: center; gap: 24px; padding: 24px; border-radius: 16px; background-color: transparent; border: 1px solid var(--border); color: var(--text); overflow: hidden }
+    .bottom-card .badge { width: 105px; height: 105px; border-radius: 0; overflow: visible; background: transparent }
+    .bottom-card .badge img { width: 100%; height: 100%; object-fit: contain; object-position: center }
+    .bottom-card h5 { font-weight: 700; font-size: 18px; margin: 0 }
+    .bottom-card p { color: var(--muted); margin: 6px 0 0 }
+
+    /* How It Works styles */
+    #how-it-works .title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; text-align: center }
+    #how-it-works .subtitle { font-size: var(--fs-16); color: var(--muted); text-align: center }
+    .hiw-list { display: grid; gap: 24px }
+    @media (min-width: 768px) { .hiw-list { grid-template-columns: repeat(2, 1fr) } }
+    @media (min-width: 1024px) { .hiw-list { grid-template-columns: repeat(3, 1fr) } }
+    .hiw-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 12px; padding: 24px 96px 24px 24px; min-height: auto; border-radius: 16px; background: transparent; border: 1px solid var(--border); color: var(--text) }
+    .hiw-card .icon { position: relative; left: auto; top: auto; width: 96px; height: 96px; background: var(--bg); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); align-self: flex-start }
+    @media (min-width: 768px) {
+      .hiw-card { padding: 24px 104px 24px 24px }
+      .hiw-card .icon { width: 112px; height: 112px }
+    }
+    @media (min-width: 1024px) {
+      .hiw-card { padding: 24px 112px 24px 24px }
+      .hiw-card .icon { width: 128px; height: 128px }
+    }
+    .hiw-card .icon img { width: 100%; height: 100%; object-fit: contain; object-position: center }
+    .hiw-card .step { position: absolute; right: 24px; top: 24px; transform: none; font-weight: 800; font-size: clamp(32px, 6.5vw, 64px); line-height: 1; color: transparent; -webkit-text-stroke: 2px rgba(17,24,39,0.18); opacity: .35 }
+    .hiw-card .hiw-title { font-weight: 700; font-size: 18px; margin: 0 }
+
+    /* Testimonials (match reference) */
+    :root { --accent: #1ea5ff }
+    #testimonials { position: relative; margin: 120px 0 80px 0; padding: 0 20px }
+    .t-section { display: grid; gap: 40px; align-items: center }
+    @media (max-width: 768px) { 
+      #testimonials { margin: 60px 0 40px 0; padding: 0 16px }
+      .t-section { gap: 24px }
+      .t-stack { min-height: 200px }
+      .t-right { padding: 16px; gap: 16px }
+      .t-heading { font-size: clamp(24px, 6vw, 36px) }
+      .t-subtitle { font-size: clamp(14px, 3vw, 16px) }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+      .t-section { gap: 32px }
+      .t-right { padding: 20px; gap: 18px }
+    }
+    @media (min-width: 1024px) { .t-section { grid-template-columns: 1.6fr 1fr } }
+    .t-stack { position: relative; min-height: 230px; width: 100%; max-width: 461px }
+    .t-bg { position: absolute; inset: 0; border-radius: 18px; background: #1f2124; border: 1px solid rgba(255,255,255,.06); box-shadow: 0 4px 24px rgba(0,0,0,.25) }
+    .t-bg.bg1 { transform: translate(10px, -10px) rotate(-4deg) }
+    .t-bg.bg2 { transform: translate(26px, 10px) rotate(4deg) }
+    .t-card { position: relative; display: grid; gap: 13px; padding: 18px; border-radius: 14px; background: #121316; color: #e5e7eb; border: 2px solid var(--accent); box-shadow: 0 0 0 2px rgba(30,165,255,.15), 0 0 28px rgba(30,165,255,.25); width: 100%; max-width: 461px }
+    @media (max-width: 480px) {
+      .t-card { padding: 14px; gap: 10px; border-radius: 12px }
+      .t-quote { font-size: clamp(12px, 3.5vw, 16px) }
+      .t-bottom { grid-template-columns: 36px 1fr auto; gap: 8px }
+      .t-avatar { width: 36px; height: 36px }
+      .t-star { width: 18px; height: 18px }
+    }
+    .t-quote { font-size: clamp(13px, 1.7vw, 19px); line-height: 1.6 }
+    .t-bottom { display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 10px; margin-top: 3px }
+    .t-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 1px solid rgba(255,255,255,.12); box-shadow: var(--shadow) }
+    .t-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center }
+    .t-name { font-weight: 700; color: #ffffff }
+    .t-role { color: #9ca3af; font-size: var(--fs-14) }
+    .t-stars { display: flex; gap: 10px; align-items: center }
+    .t-star { width: clamp(20px, 1.8vw, 24px); height: clamp(20px, 1.8vw, 24px); fill: #efd302; filter: drop-shadow(0 0 2px rgba(239,211,2,.35)) }
+    .t-right { display: grid; gap: 12px; justify-items: start; background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 12px }
+    .t-heading { font-size: clamp(30px, 4.6vw, 54px); font-weight: 800; color: #111827 }
+    .t-subtitle { font-size: clamp(16px, 1.6vw, 19px); color: #374151 }
+    .t-nav { display: flex; gap: 12px }
+    .circle-btn { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: #ffffff; color: #374151; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform .15s, border-color .15s, box-shadow .15s }
+    @media (max-width: 480px) {
+      .circle-btn { width: 36px; height: 36px }
+      .t-nav { gap: 8px }
+    }
+    .circle-btn:hover { border-color: #374151; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.20) }
+    .circle-btn:disabled { opacity: .5; cursor: not-allowed }
+    /* Carousel animations */
+    .t-card { will-change: transform, opacity }
+    @keyframes slideLeft { from { opacity: .6; transform: translateX(16px) } to { opacity: 1; transform: translateX(0) } }
+    @keyframes slideRight { from { opacity: .6; transform: translateX(-16px) } to { opacity: 1; transform: translateX(0) } }
+    .t-card.anim-left { animation: slideLeft .28s ease }
+    .t-card.anim-right { animation: slideRight .28s ease }
+
+    /* Footer Styles */
+    .footer {
+      position: relative;
+      width: 100%;
+      min-height: 400px;
+      margin-top: 120px;
+      overflow: hidden;
+    }
+    
+    .footer-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .footer-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+    
+    .footer-shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.9) 100%);
+      z-index: 2;
+    }
+    
+    .footer-container {
+      position: relative;
+      z-index: 3;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 20px 40px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+    
+    .footer-logo a {
+      display: block;
+      max-width: 200px;
+    }
+    
+    .footer-logo img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    
+    .footer-socials {
+      /* Space for social media icons if needed */
+    }
+    
+    .footer-copyright {
+      margin-top: auto;
+    }
+    
+    .footer-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.24) 52.7%, rgba(255, 255, 255, 0) 100%);
+      margin-bottom: 24px;
+    }
+    
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+    }
+    
+    .footer-left p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .footer-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      color: #ffffff;
+    }
+    
+    .footer-divider {
+      width: 1px;
+      height: 16px;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Responsive Footer */
+    @media (max-width: 768px) {
+      .footer {
+        min-height: 300px;
+        margin-top: 80px;
+      }
+      
+      .footer-container {
+        padding: 60px 16px 30px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      
+      .footer-logo {
+        margin-bottom: 20px;
+      }
+      
+      .footer-logo a {
+        max-width: 150px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+      
+      .footer-right {
+        gap: 12px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .footer {
+        min-height: 250px;
+        margin-top: 60px;
+      }
+      
+      .footer-container {
+        padding: 40px 12px 20px;
+      }
+      
+      .footer-logo a {
+        max-width: 120px;
+      }
+      
+      .footer-bottom {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header layer">
+    <div class="bar container">
+      <a href="#" class="brand"><img src="/Firmix.png" alt="Firmix"></a>
+      <nav class="nav">
+        <a href="https://lin.ee/RnpS3xs" class="btn" role="button">Contact Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container stack">
+    <div class="main-bg" aria-hidden="true">
+      <div class="bg-layer" data-src="/Firmix/5.gif" data-ratio="1" data-fade="180px" data-opacity="0.92" data-blend="normal" data-speed="0.06" aria-label="Background layer 1"></div>
+      <div class="bg-layer" data-src="/Firmix/8.gif" data-ratio="1" data-fade="180px" data-opacity="0.90" data-blend="normal" data-speed="0.08" aria-label="Background layer 2"></div>
+      <div class="bg-layer" data-src="/Firmix/12.gif" data-ratio="1" data-fade="180px" data-opacity="0.88" data-blend="normal" data-speed="0.10" aria-label="Background layer 3"></div>
+    </div>
+    <!-- Hero: ส่วนเปิดหน้าแบบภาพพื้นหลัง + ข้อความ + ปุ่ม -->
+    <section id="hero" class="layer">
+      <div class="hero-bg">
+        <img src="/11.gif" alt="Hero BG">
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-container">
+        <h2 class="hero-title">LET'S UNLOCK YOUR <br>FINANCIAL WITH <br>B STOCK EXCHANGE</h2>
+        <p class="hero-subtitle">Discover the Future of Finance: Seamless Transactions, Innovative Solutions, and a User-Friendly Interface.</p>
+        <div><a class="btn" href="https://lin.ee/RnpS3xs" rel="noopener">Let's get started</a></div>
+      </div>
+    </section>
+
+    <!-- BEX Application Download: การ์ดลิงก์ไปยังสโตร์ -->
+    <section class="stack" id="bex-download">
+      <h2>BEX Application Download</h2>
+      <div class="dl-list">
+        <a class="dl-card" href="https://apps.apple.com/us/app/firmix/id6754563778" target="_blank" rel="noopener" aria-label="Download on App Store">
+          <div class="badge"><img src="https://framerusercontent.com/images/fOxtnbby6zBvuhwKaf7Gy2V3Zk.png?width=2048&height=2048" alt="App Store icon"></div>
+          <div class="title">App Store</div>
+        </a>
+        <a class="dl-card" href="https://play.google.com/store/apps/details?id=com.GGALPHA.app" target="_blank" rel="noopener" aria-label="Download on Google Play Store">
+          <div class="badge"><img src="https://framerusercontent.com/images/Z1PpV8xqmQxUPQCI4BiDy09X6k.png?width=512&height=512" alt="Google Play icon"></div>
+          <div class="title">Google Play Store</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="stack">
+      <div class="services-header">
+        <h3 class="title">Collaborating for a stronger  future.</h3>
+        <p class="subtitle">Supported by</p>
+      </div>
+      <div class="services-cards">
+        <div class="bg">
+          <img src="https://framerusercontent.com/images/39j1G1QY4Q0VAuxLL8eaCRmBc.png?width=2658&height=414" alt="Supported by logos">
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Asset Management Services -->
+    <section id="asset-services" class="stack">
+      <div class="services-header">
+        <h3 class="title">Asset Management Services</h3>
+        <p class="subtitle">Asset management services optimize and secure portfolios.</p>
+      </div>
+      <div class="svc-list">
+        <article class="svc-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/OEieMSdhXrw3IdryXJvX45KRI.png?width=1082&height=1082" alt="Portfolio Management icon"></div>
+          <div>
+            <div class="title">Portfolio Management</div>
+            <p class="body">Optimize and securely grow your investments.</p>
+          </div>
+        </article>
+        <article class="svc-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/dGPd0M5iJT4uvCuDCP2o53dOZN4.png?width=1452&height=1452" alt="Risk Analysis icon"></div>
+          <div>
+            <div class="title">Risk Analysis</div>
+            <p class="body">Minimize investment risks with expert insights.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- Bottom Cards -->
+    <section id="bottom-cards" class="stack">
+      <div class="bottom-list">
+        <article class="bottom-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/GtZoHbAVJNMx8pybVx1G6ANh6og.png?width=512&height=512" alt="Secure Storage icon"></div>
+          <div>
+            <h5>Secure Storage</h5>
+            <p>Protect assets with advanced security measures.</p>
+          </div>
+        </article>
+        <article class="bottom-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/4nofpcxLf3E8k4m3hiKpYZsCUOQ.png?width=512&height=512" alt="Real-Time Analytics icon"></div>
+          <div>
+            <h5>Real-Time Analytics</h5>
+            <p>Stay informed with live market updates.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="stack">
+      <div class="services-header">
+        <h3 class="title">How It Works</h3>
+        <p class="subtitle">Contact us, select your services, and let us manage your asset.</p>
+      </div>
+      <div class="hiw-list">
+        <article class="hiw-card">
+          <div class="icon"><img src="https://framerusercontent.com/images/leV5N5MUhoJZ8oYEIDD92hjj3sw.png?width=512&height=512" alt="Contact Us icon"></div>
+          <div>
+            <div class="step">01</div>
+            <h5 class="hiw-title">Contact Us</h5>
+          </div>
+        </article>
+        <article class="hiw-card">
+          <div class="icon"><img src="https://framerusercontent.com/images/XbGhPVxaQebtWydzNbdGj9qsKg.png?width=512&height=512" alt="Choose Services icon"></div>
+          <div>
+            <div class="step">02</div>
+            <h5 class="hiw-title">Choose Services</h5>
+          </div>
+        </article>
+        <article class="hiw-card">
+          <div class="icon"><img src="https://framerusercontent.com/images/PZVbs91O3BOqKWcowBF1VCME0I.png?width=2164&height=2164" alt="Stay In Peace icon"></div>
+          <div>
+            <div class="step">03</div>
+            <h5 class="hiw-title">Stay In Peace</h5>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    
+    <!-- Asset Solutions for Everyone -->
+    <section id="asset-solutions" class="stack">
+      <div class="services-header">
+        <h3 class="title">Asset Solutions for Everyone</h3>
+        <p class="subtitle">Custom services to securely manage and grow your assets.</p>
+      </div>
+    </section>
+
+    <!-- Audience Cards: Individuals / Businesses (append at bottom) -->
+    <section id="audience-cards" class="stack">
+      <div class="services-header">
+
+      </div>
+      <div class="aud-list">
+        <article class="aud-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/PMoJ5dFGxYY4JYHLohinQJzcAgw.png?width=512" alt="Individuals icon"></div>
+          <div>
+            <h5 class="aud-title">Individuals</h5>
+            <p class="aud-body">New to investment? We’ll guide you every step of the way.</p>
+          </div>
+        </article>
+        <article class="aud-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/LGWXYmAITA6W0MLvyrlhy8bomNM.png?width=512" alt="Businesses icon"></div>
+          <div>
+            <h5 class="aud-title">Businesses</h5>
+            <p class="aud-body">Securely store, analyze, and optimize your crypto operations.</p>
+          </div>
+        </article>
+        <article class="aud-card">
+          <div class="badge"><img src="https://framerusercontent.com/images/1FJQQyFXaGiDXv2LJX8tlWxFkQ.png?width=512" alt="Institutions icon"></div>
+          <div>
+            <h5 class="aud-title">Institutions</h5>
+            <p class="aud-body">Custom strategies for portfolio control and risk analysis.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Support CTA (moved inside main so background shows) -->
+    <section id="support-cta" class="stack">
+      <div class="services-header">
+        <h3 class="title">Need Help? We're Here for You!</h3>
+        <p class="subtitle">We're here to help! Contact our support team for assistance.</p>
+      </div>
+      <div class="support-actions">
+        <a class="btn" href="https://lin.ee/RnpS3xs" aria-label="Contact Support">Contact Support</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Testimonials (refined to match reference) -->
+  <section id="testimonials" class="stack">
+    <div class="t-section">
+      <div class="t-left">
+        <div class="t-stack">
+          <div class="t-bg bg1" aria-hidden="true"></div>
+          <div class="t-bg bg2" aria-hidden="true"></div>
+          <article class="t-card">
+            <div class="t-quote" id="t-quote">“Investment management has completely transformed the way I manage my assets. Finvesity Team is very friendly, and support is always available.”</div>
+            <div class="t-bottom">
+              <div class="t-avatar">
+                <img id="t-avatar" src="https://framerusercontent.com/images/aMMGf2pBuVMhCww7Ev2wa6HBFY.jpg?width=256" alt="Vassakorn T.">
+              </div>
+              <div>
+                <div class="t-name" id="t-name">Vassakorn T.</div>
+                <div class="t-role" id="t-role">Individual Investor</div>
+              </div>
+              <div class="t-stars" id="t-stars" aria-label="5 stars">
+                <!-- stars will be rendered by JS -->
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="t-right">
+        <div class="t-heading">Quotes From<br>Satisfied Users</div>
+        <div class="t-subtitle">Join Thousands of Happy Investors.</div>
+        <div class="t-nav">
+          <button class="circle-btn" id="t-prev" type="button" aria-label="Previous">←</button>
+          <button class="circle-btn" id="t-next" type="button" aria-label="Next">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    // สคริปต์ตรวจสอบฟอร์มแบบเดียวกันทุกฟอร์ม/ฟิลด์
+    function validateForm(form){
+      let ok = true;
+      const fields = form.querySelectorAll('.field');
+      fields.forEach(f => {
+        f.classList.remove('invalid');
+        const input = f.querySelector('.input, .textarea, .select');
+        const err = f.querySelector('.error');
+        if(!input) return;
+        let valid = true;
+        if (input.hasAttribute('required') && !String(input.value||'').trim()) valid = false;
+        if (input.type === 'email' && String(input.value||'').trim()) {
+          const emailOk = /.+@.+\..+/.test(String(input.value));
+          valid = valid && emailOk;
+        }
+        if (!valid) {
+          ok = false; f.classList.add('invalid'); if(err) err.textContent = 'โปรดกรอกข้อมูลให้ถูกต้อง';
+        } else { if(err) err.textContent = '' }
+      });
+      return ok;
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.form').forEach(form => {
+        form.addEventListener('submit', function(e){
+          const ok = validateForm(form);
+          if(!ok){ e.preventDefault(); }
+        });
+      });
+    });
+  </script>
+  <script>
+    // Testimonials carousel: เปลี่ยนคอมเมนต์ด้วยปุ่มซ้าย/ขวา และแอนิเมชัน
+    document.addEventListener('DOMContentLoaded', function(){
+      let animating = false;
+      const testimonials = [
+        {
+          quote: 'Investment management has completely transformed the way I manage my assets. Finvesity Team is very friendly, and support is always available.',
+          name: 'Vassakorn T.',
+          role: 'Individual Investor',
+          avatar: 'https://framerusercontent.com/images/aMMGf2pBuVMhCww7Ev2wa6HBFY.jpg?width=256',
+          rating: 5
+        },
+        {
+          quote: 'The portfolio tracking features are very useful. I now feel confident managing my assets and making informed decisions.',
+          name: 'Prasertsak W.',
+          role: 'Video Producer',
+          avatar: '/9.png',
+          rating: 5
+        }
+      ];
+
+      let index = 0;
+      const elQuote = document.getElementById('t-quote');
+      const elAvatar = document.getElementById('t-avatar');
+      const elName = document.getElementById('t-name');
+      const elRole = document.getElementById('t-role');
+      const elStars = document.getElementById('t-stars');
+      const card = document.querySelector('.t-card');
+      const bg1 = document.querySelector('.t-bg.bg1');
+      const bg2 = document.querySelector('.t-bg.bg2');
+
+      function render(i, dir){
+        animating = true;
+        const t = testimonials[i];
+        if(elQuote) elQuote.textContent = `“${t.quote}”`;
+        if(elName) elName.textContent = t.name;
+        if(elRole) elRole.textContent = t.role;
+        if(elAvatar){ elAvatar.src = t.avatar; elAvatar.alt = t.name; }
+        if(elStars){
+          const starSvg = '<svg class="t-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+          elStars.innerHTML = new Array(t.rating).fill(starSvg).join('');
+          elStars.setAttribute('aria-label', `${t.rating} stars`);
+        }
+        if(card){
+          card.classList.remove('anim-left','anim-right');
+          // restart animation by forcing reflow
+          // @note: HTMLElement has offsetWidth in browser
+          // @ts-ignore
+          void card.offsetWidth;
+          card.classList.add(dir === 'left' ? 'anim-left' : 'anim-right');
+        }
+        // subtle motion on stacked backgrounds
+        if(bg1 && bg2){
+          if(dir === 'left'){
+            bg1.style.transform = 'translate(13px, -16px) rotate(-5deg)';
+            bg2.style.transform = 'translate(58px, 16px) rotate(7deg)';
+          } else {
+            bg1.style.transform = 'translate(22px, -22px) rotate(-6deg)';
+            bg2.style.transform = 'translate(45px, 10px) rotate(6deg)';
+          }
+          setTimeout(() => {
+            if(bg1) bg1.style.transform = 'translate(10px, -10px) rotate(-4deg)';
+            if(bg2) bg2.style.transform = 'translate(26px, 10px) rotate(4deg)';
+          }, 280);
+        }
+        setTimeout(() => { animating = false; toggleNav(false); }, 280);
+      }
+
+      // initial render
+      render(index, 'right');
+
+      const prevBtn = document.getElementById('t-prev');
+      const nextBtn = document.getElementById('t-next');
+      function toggleNav(disabled){ prevBtn && (prevBtn.disabled = disabled); nextBtn && (nextBtn.disabled = disabled); }
+      prevBtn?.addEventListener('click', function(){
+        if(animating) return; toggleNav(true);
+        index = (index - 1 + testimonials.length) % testimonials.length;
+        render(index, 'left');
+      });
+      nextBtn?.addEventListener('click', function(){
+        if(animating) return; toggleNav(true);
+        index = (index + 1) % testimonials.length;
+        render(index, 'right');
+      });
+
+      // keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowLeft'){ prevBtn?.click(); }
+        if(e.key === 'ArrowRight'){ nextBtn?.click(); }
+      });
+    });
+  </script>
+  <script>
+    // จัดเลเยอร์พื้นหลังให้เต็มความสูงของ main และให้ทั้งสามรูปชนกันพอดี พร้อมพารัลแลกซ์
+    document.addEventListener('DOMContentLoaded', function(){
+      const container = document.querySelector('main.container.stack');
+      const layers = Array.from(document.querySelectorAll('.main-bg .bg-layer'));
+
+      function applyLayerSettings(layer){
+        const src = layer.getAttribute('data-src');
+        const opacity = layer.getAttribute('data-opacity');
+        const blend = layer.getAttribute('data-blend');
+        const fade = layer.getAttribute('data-fade');
+        if(src) layer.style.backgroundImage = `url(${src})`;
+        if(opacity) layer.style.setProperty('--bg-opacity', opacity);
+        if(blend) layer.style.setProperty('--bg-blend', blend);
+        if(fade) layer.style.setProperty('--fade-size', fade);
+      }
+
+      function layoutLayers(){
+        // ให้ภาพพื้นหลังครอบคลุมความสูงของเนื้อหาใน main ทั้งหมด
+        const mainHeight = container.scrollHeight;
+        const minSeg = Math.max(0, window.innerHeight); // ขั้นต่ำ 100vh ต่อเลเยอร์
+        const ratios = layers.map(l => parseFloat(l.getAttribute('data-ratio')||'1'));
+        const sum = ratios.reduce((a,b)=>a+b,0);
+        let y = 0;
+        layers.forEach((layer, i) => {
+          // แบ่งตามอัตราส่วน และรับประกันขั้นต่ำ 100vh
+          let seg = Math.round(mainHeight * (ratios[i]/sum));
+          if (seg < minSeg) seg = minSeg;
+          // เลเยอร์สุดท้ายเติมส่วนที่เหลือเพื่อให้ความสูงรวมครอบคลุมทั้ง main
+          if (i === layers.length - 1) seg = Math.max(seg, mainHeight - y);
+          layer.style.setProperty('--bg-height', seg + 'px');
+          layer.style.top = y + 'px';
+          y += seg; // ทำให้เลเยอร์ถัดไปชนกันพอดี
+        });
+      }
+
+      function onScroll(){
+        const scrollY = window.scrollY || window.pageYOffset;
+        layers.forEach(layer => {
+          const speed = parseFloat(layer.getAttribute('data-speed')||'0.06');
+          layer.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+      }
+
+      layers.forEach(applyLayerSettings);
+      layoutLayers();
+      onScroll();
+
+      window.addEventListener('resize', layoutLayers);
+      window.addEventListener('scroll', onScroll, { passive: true });
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer">
+    <div class="footer-bg">
+      <img src="/Firmix/13.gif" alt="Footer background">
+    </div>
+    <div class="footer-shadow"></div>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="#hero">
+            <img src="/Firmix.png" alt="Logo" width="450" height="165">
+          </a>
+        </div>
+        <div class="footer-socials">
+          <!-- Social links can be added here -->
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="footer-line"></div>
+        <div class="footer-bottom">
+          <div class="footer-left">
+            <p>© B Stock Exchange (BEX)</p>
+          </div>
+          <div class="footer-right">
+            <a href="./privacy-policy" class="footer-link">Privacy Policy</a>
+            <div class="footer-divider"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
